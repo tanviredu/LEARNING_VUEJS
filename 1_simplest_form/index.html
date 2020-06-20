@@ -17,10 +17,28 @@
             <div class="container">
             
 
-                <div class="card" style="width: 18rem;">
-                    <img class="card-img-top" :src="imgsrc" :title="imgtitle" >
+                <div class="card" style="height: 2rem;">
+                    <img class="card-img-top" style="height: 20rem;" :src="imgsrc" :title="imgtitle" >
                     <div class="card-body">
-                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                      <p class="card-text">
+                        <table class="table table-hover">
+                            <thead>
+                                <th>Name</th>
+                                <th>Clse Approx date</th>
+                            </thead>
+
+                            <tbody v-cloak>
+                              <tr v-for="item in astrodids">
+                                  
+                              
+                                    <td>{{item.name}}</td>
+                                    <td>{{getCloseApproachDate(item)}}</td>
+                              </tr>
+                            </tbody>
+
+                        </table>
+
+                      </p>
                     </div>
                   </div>
 
@@ -50,7 +68,7 @@
                         var url1 = "https://api.nasa.gov/planetary/apod?api_key="+apikey;            
                         axios.get(url1)
                         .then((res)=>{
-                                vm.imgsrc = res.data.url1;
+                                vm.imgsrc = res.data.url;
                                 vm.imgtitle = res.data.title;
                         })
                     },
@@ -62,10 +80,19 @@
                         .then((res)=>{
                             vm.astrodids = res.data.near_earth_objects.slice(0,10);
                         })
-                    }
-                }
-            })    
+                    },
 
+                    getCloseApproachDate:function(a){
+                        if(a.close_approach_data.length>0){
+                            return a.close_approach_data[0].close_approach_date;
+                        }
+                        return "N/A"
+                    }
+
+                   
+                }    
+            
+            })
             // vm.fetchaopd();       
         </script>
 
