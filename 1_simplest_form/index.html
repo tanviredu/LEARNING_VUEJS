@@ -19,8 +19,7 @@
         </div>
 
         <script>
-            var apikey="lS8TtJ6SBG2m3Hkczri4jEdquKMRKCsESV7xdrOr";
-            var url = "https://api.nasa.gov/planetary/apod?api_key="+apikey;
+            
           var vm =  new Vue({
                 el:'#app',
                 data:{
@@ -31,20 +30,19 @@
 
                 },
                 methods : {
-                    process: function(/*event*/){
-                        //event.preventDefault(); // to stop the refreshing
-                        // alert("Submitted "+this.email);
-                        this.submitted = true;
+                    fetchaopd:function(){
+                        var apikey="lS8TtJ6SBG2m3Hkczri4jEdquKMRKCsESV7xdrOr";
+                        var url = "https://api.nasa.gov/planetary/apod?api_key="+apikey;            
+                        axios.get(url)
+                        .then((res)=>{
+                                vm.imgsrc = res.data.url;
+                                vm.imgtitle = res.data.title;
+                        })
                     }
                 }
-            })
+            })    
 
-            axios.get(url)
-            .then((res)=>{
-                //console.log(res);
-                vm.imgsrc = res.data.url;
-                vm.imgtitle = res.data.title;
-            })
+            vm.fetchaopd();       
         </script>
 
     </body>
