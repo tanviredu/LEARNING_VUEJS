@@ -21,7 +21,7 @@
                     <img class="card-img-top" style="height: 20rem;" :src="imgsrc" :title="imgtitle" >
                     <div class="card-body">
                       <p class="card-text">
-                          <h3> Showing : {{astrodids.length}} item</h3>
+                          <h3> Showing : {{numastroids}} item</h3>
                         <table class="table table-hover">
                             <thead>
                                 <th>id</th>
@@ -32,7 +32,7 @@
                             </thead>
 
                             <tbody v-cloak>
-                                <tr v-for="(item,index) in astrodids">
+                                <tr v-for="(item,index) in astrodids" :style="getRowStyle(item)">
                                   
                                     <td>{{index+1}}</td>
                                     <td>{{item.name}}</td>
@@ -76,6 +76,17 @@
                     this.fetchaopd(); // this is the hooks
                     this.fetchastrodids();
                 },
+                computed:{
+                    // this portion will be loaded
+                    // after everything computed
+                    numastroids:function(){
+                        // this will be executed after 
+                        // the astrodids will be 
+                        // calculated
+                        return this.astrodids.length;
+                    }
+                },
+
                 methods : {
                     fetchaopd:function(){
                         var apikey="lS8TtJ6SBG2m3Hkczri4jEdquKMRKCsESV7xdrOr";
@@ -107,6 +118,16 @@
                         vm.astrodids.splice(index,1)
                         // remove data
                         // splice(from_start,how_many_will_be_removed)
+                    },
+
+                    getRowStyle:function(item){
+
+                            if (item.close_approach_data.length==0){
+                                return {
+                                    border:"solid 3px red",
+                                    color:'red'
+                                }
+                            }
                     }
 
                    
