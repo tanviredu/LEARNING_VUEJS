@@ -23,16 +23,27 @@
                       <p class="card-text">
                         <table class="table table-hover">
                             <thead>
+                                <th>id</th>
                                 <th>Name</th>
                                 <th>Clse Approx date</th>
+                                <th>Miss Diatance</th>
                             </thead>
 
                             <tbody v-cloak>
-                              <tr v-for="item in astrodids">
+                              <tr v-for="(item,index) in astrodids">
                                   
-                              
+                                    <td>{{index+1}}</td>
                                     <td>{{item.name}}</td>
                                     <td>{{getCloseApproachDate(item)}}</td>
+                                    <td>
+                                        <ul v-if="item.close_approach_data.length > 0">
+                                            <li v-for="(value,key) in item.close_approach_data[0].miss_distance">
+                                                {{key}}:{{value}}
+
+                                            </li>
+                                        </ul>
+
+                                    </td>
                               </tr>
                             </tbody>
 
