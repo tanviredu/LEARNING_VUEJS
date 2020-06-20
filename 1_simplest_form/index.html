@@ -12,11 +12,21 @@
 
     </head>
     <body>
+        <center>
         <div id="app">
             <div class="container">
-                <img :src="imgsrc" :title="imgtitle">
+            
+
+                <div class="card" style="width: 18rem;">
+                    <img class="card-img-top" :src="imgsrc" :title="imgtitle" >
+                    <div class="card-body">
+                      <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    </div>
+                  </div>
+
             </div>
         </div>
+    </center>
 
         <script>
             
@@ -27,22 +37,36 @@
                     submitted:false,
                     imgsrc:"",
                     imgtitle:"",
+                    astrodids:[],
 
+                },
+                created:function(){
+                    this.fetchaopd(); // this is the hooks
+                    this.fetchastrodids();
                 },
                 methods : {
                     fetchaopd:function(){
                         var apikey="lS8TtJ6SBG2m3Hkczri4jEdquKMRKCsESV7xdrOr";
-                        var url = "https://api.nasa.gov/planetary/apod?api_key="+apikey;            
-                        axios.get(url)
+                        var url1 = "https://api.nasa.gov/planetary/apod?api_key="+apikey;            
+                        axios.get(url1)
                         .then((res)=>{
-                                vm.imgsrc = res.data.url;
+                                vm.imgsrc = res.data.url1;
                                 vm.imgtitle = res.data.title;
+                        })
+                    },
+
+                    fetchastrodids:function(){
+                        var apikey="lS8TtJ6SBG2m3Hkczri4jEdquKMRKCsESV7xdrOr";
+                        var url2 = "https://api.nasa.gov/neo/rest/v1/neo/browse?api_key="+apikey;
+                        axios.get(url2)
+                        .then((res)=>{
+                            vm.astrodids = res.data.near_earth_objects.slice(0,10);
                         })
                     }
                 }
             })    
 
-            vm.fetchaopd();       
+            // vm.fetchaopd();       
         </script>
 
     </body>
