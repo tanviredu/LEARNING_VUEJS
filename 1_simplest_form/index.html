@@ -16,7 +16,7 @@
                 <form class="mt-5">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="email" :value="email" class="form-control form-control-lg">
+                        <input type="email" v-model="email" class="form-control form-control-lg">
                     </div>
                     <button type="submit" class="btn btn-danger btn-lg">Submit</button>
                     </div>
@@ -25,7 +25,7 @@
         </div>
 
         <script>
-            new Vue({
+          var vm =  new Vue({
                 el:'#app',
                 data:{
                     email: 'abc@gmail.com'
