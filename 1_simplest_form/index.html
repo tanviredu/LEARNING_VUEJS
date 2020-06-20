@@ -12,14 +12,23 @@
     </head>
     <body>
         <div id="app">
-            <h1 class="display-4">{{greeting}}</h1>
+           <div class="container">
+                <form class="mt-5">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" :value="email" class="form-control form-control-lg">
+                    </div>
+                    <button type="submit" class="btn btn-danger btn-lg">Submit</button>
+                    </div>
+                </form>
+           </div>
         </div>
 
         <script>
             new Vue({
                 el:'#app',
                 data:{
-                    greeting : "Hello from vue"
+                    email: 'abc@gmail.com'
                 }
             })
         </script>
